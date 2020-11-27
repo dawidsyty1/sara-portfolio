@@ -9,12 +9,12 @@ const Header = () => {
   const action = () => (location.pathname !== '/' && state ? history.push('/') : setState(!state));
 
   return (
-    <header id="header" class={state ? "hide" : 'show'} onClick={() => action()}>
-      <div class="inner">
-        <div class="content">
+    <header id="header" className={state ? "hide" : 'show'} onClick={() => action()}>
+      <div className="inner">
+        <div className="content">
           <h1>Sara Szyje</h1>
           <h2>Prezetuję wam moje portfolio!.</h2>
-          <button class="button"><span>Otwórz</span></button>
+          <button className="button"><span>Otwórz</span></button>
         </div>
       </div>
     </header>

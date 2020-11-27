@@ -7,19 +7,21 @@ import Header from './components/Header';
 import PortfolioItems from './components/PortfolioItems.js';
 import Footer from './components/Footer';
 import PortfolioDetails from './components/PortfolioDetails';
-
+import PortfolioContextProvider from './containers/portfolioContext';
 
 class App extends Component {
   render() {
     return (
       <body>
         <BrowserRouter>
-          <Header />
-            <Switch>
-              <Route exact path="/" component={PortfolioItems} />
-              <Route exact path="/:slug" component={PortfolioDetails} />
-            </Switch>
-          <Footer />
+          <PortfolioContextProvider>
+            <Header />
+              <Switch>
+                <Route exact path="/" component={PortfolioItems} />
+                <Route exact path="/:slug" component={PortfolioDetails} />
+              </Switch>
+            <Footer />
+          </PortfolioContextProvider>
         </BrowserRouter>
       </body>
     );

@@ -1,28 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { portfolio } from '../containers/portfolioContext';
+import { usePortfolioContext } from '../containers/portfolioContext';
 
 
 const PortfolioDetails = ({ match }) => {
   const { slug } = match.params;
+  const { getElementBySlug, nextSlug, previousSlug} = usePortfolioContext();
+
   const imageRef = useRef(null);
   const [vertial, setVertical ] = useState(false);
-  const index = portfolio.findIndex(element => element.slug === slug);
-  const item = index !== -1 ? portfolio[index] : portfolio[0];
-  const isVertial = () => imageRef.current ? imageRef.current.clientHeight > 900 : false;
+  const { index, item } = getElementBySlug(slug);
 
-  const nextSlug = () => portfolio.length > index + 1 ? portfolio[index + 1].slug : portfolio[0].slug;
-  const previousSlug = () => index - 1 >= 0 ? portfolio[index - 1].slug : portfolio[portfolio.length - 1].slug;
+  const isVertial = () => imageRef.current ? imageRef.current.clientHeight > 900 : false;
 
   useEffect(_=> setVertical(isVertial()), [imageRef, slug])
 
   return (
-    <div id="preview" class={vertial ? "vertical" : ''}>
-      <div class="inner">
-        <div class="image fit">
+    <div id="preview" className={vertial ? "vertical" : ''}>
+      <div className="inner">
+        <div className="image fit">
           <img ref={imageRef} src={process.env.PUBLIC_URL + `/images/${item.imageName}.jpg`} alt="" />
         </div>
-        <div class="content">
+        <div className="content">
           <header>
             <h2>{item.title}</h2>
           </header>
@@ -30,8 +29,8 @@ const PortfolioDetails = ({ match }) => {
           <p>{item.description_p1}</p>
         </div>
       </div>
-      <NavLink to={previousSlug} ><span class="fa fa-chevron-left nav previous"></span></NavLink>
-      <NavLink to={nextSlug()} ><span class="fa fa-chevron-right nav next"></span></NavLink>
+      <NavLink to={previousSlug(index)} ><span className="fa fa-chevron-left nav previous"></span></NavLink>
+      <NavLink to={nextSlug(index)} ><span className="fa fa-chevron-right nav next"></span></NavLink>
     </div>
   )
 };

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const portfolio = [
   { 
     imageName: 'pic01', slug: 'pic01', vertical: true, title: 'Test title pic01', description_p1: 'Test pic01'
@@ -48,3 +50,37 @@ export const portfolio = [
     imageName: 'pic16', slug: 'pic16', vertical: true, title: 'Test title pic16', description_p1: 'Test pic16'
   },
 ];
+
+
+const PortfolioContext = React.createContext();
+
+const PortfolioProvider = PortfolioContext.Provider;
+export const usePortfolioContext = () => React.useContext(PortfolioContext);
+
+const PortfolioContextProvider = ({ children }) => {
+  const getElementBySlug = (slug) => {
+    const index = portfolio.findIndex(element => element.slug === slug);
+    let element = { index: 0, item: portfolio[0] };
+
+    if (index !== -1) {
+      element = { index, item: portfolio[index]}
+    }
+
+    return element
+  }
+
+  const nextSlug = (index) => (portfolio.length > index + 1 ? portfolio[index + 1].slug : portfolio[0].slug);
+  const previousSlug = (index) => (index - 1 >= 0 ? portfolio[index - 1].slug : portfolio[portfolio.length - 1].slug);
+
+  return (
+    <PortfolioProvider
+      value={{
+        getElementBySlug,
+        nextSlug,
+        previousSlug,
+      }}>
+       {children}
+    </PortfolioProvider>
+  )
+}
+export default PortfolioContextProvider;

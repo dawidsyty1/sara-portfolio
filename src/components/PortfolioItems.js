@@ -5,8 +5,8 @@ import { portfolio } from '../containers/portfolioContext';
 
 const PortfolioItems = () => (
   <div id="main">
-    <div class="inner">
-      <div class="columns">
+    <div className="inner">
+      <div className="columns">
         {portfolio.map(item => (<Image url={item.slug} name={item.imageName} />))}
       </div>
     </div>
