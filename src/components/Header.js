@@ -7,9 +7,10 @@ const Header = () => {
   const history = useHistory();
 
   const action = () => (location.pathname !== '/' && state ? history.push('/') : setState(!state));
+  const showInfo = () => state || location.pathname !== '/';
 
   return (
-    <header id="header" className={state ? "hide" : 'show'} onClick={() => action()}>
+    <header id="header" className={showInfo() ? "hide" : 'show'} onClick={() => action()}>
       <div className="inner">
         <div className="content">
           <h1>Sara Szyje</h1>

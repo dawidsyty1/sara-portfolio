@@ -6,10 +6,10 @@ import { usePortfolioContext } from '../containers/portfolioContext';
 const PortfolioDetails = ({ match }) => {
   const { slug } = match.params;
   const { getElementBySlug, nextSlug, previousSlug} = usePortfolioContext();
+  const [ vertial, setVertical ] = useState(false);
+  const { index, item } = getElementBySlug(slug);
 
   const imageRef = useRef(null);
-  const [vertial, setVertical ] = useState(false);
-  const { index, item } = getElementBySlug(slug);
 
   const isVertial = () => imageRef.current ? imageRef.current.clientHeight > 900 : false;
 
