@@ -8,3 +8,5 @@ WORKDIR /app
 ADD . /app
 
 RUN npm install && npm run build
+
+

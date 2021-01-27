@@ -11,3 +11,11 @@ services:
     ports:
       - 3000:3000
     tty: true
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./log/nginx:/var/log/nginx
+      - ./build:/usr/share/nginx/html
+    ports:
+    - "8080:80"
