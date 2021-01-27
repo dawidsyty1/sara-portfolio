@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import { getPortfolio } from '../apollo/client'
 
 export const portfolio = [
   { 
@@ -69,6 +69,12 @@ const PortfolioContextProvider = ({ children }) => {
 
     return element
   }
+
+  useEffect(()=> {
+    getPortfolio((portfolios) => {
+      console.log('portfolios', portfolios)
+    })
+  }, [])
 
   const nextSlug = (index) => (portfolio.length > index + 1 ? portfolio[index + 1].slug : portfolio[0].slug);
   const previousSlug = (index) => (index - 1 >= 0 ? portfolio[index - 1].slug : portfolio[portfolio.length - 1].slug);

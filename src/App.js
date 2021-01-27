@@ -3,6 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
 import './styles/css/main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { client } from './apollo/client';
 import Header from './components/Header';
 import PortfolioItems from './components/PortfolioItems.js';
 import Footer from './components/Footer';
@@ -12,18 +14,20 @@ import PortfolioContextProvider from './containers/portfolioContext';
 class App extends Component {
   render() {
     return (
-      <body>
-        <BrowserRouter>
-          <PortfolioContextProvider>
-            <Header />
-              <Switch>
-                <Route exact path="/" component={PortfolioItems} />
-                <Route exact path="/:slug" component={PortfolioDetails} />
-              </Switch>
-            <Footer />
-          </PortfolioContextProvider>
-        </BrowserRouter>
-      </body>
+      <ApolloProvider client={client}>
+        <body>
+          <BrowserRouter>
+            <PortfolioContextProvider>
+              <Header />
+                <Switch>
+                  <Route exact path="/" component={PortfolioItems} />
+                  <Route exact path="/:slug" component={PortfolioDetails} />
+                </Switch>
+              <Footer />
+            </PortfolioContextProvider>
+          </BrowserRouter>
+        </body>
+      </ApolloProvider>
     );
   }
 }
