@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Image = ({url, name}) => (
+const Image = ({url, file, alt}) => (
   <div className="image fit">
-    <NavLink to={url} ><img src={process.env.PUBLIC_URL + `/images/${name}.jpg`}  alt="" /></NavLink>
+    <NavLink to={url} ><img src={file}  alt={alt} /></NavLink>
   </div>
 );
 

@@ -1,38 +1,34 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { usePortfolioContext } from '../containers/portfolioContext';
+import PortfolioItem from './PortfolioItem';
 
 
 const PortfolioDetails = ({ match }) => {
   const { slug } = match.params;
-  const { getElementBySlug, nextSlug, previousSlug} = usePortfolioContext();
-  const [ vertial, setVertical ] = useState(false);
-  const { index, item } = getElementBySlug(slug);
+  const { getElementBySlug, nextSlug, previousSlug } = usePortfolioContext();
+  const { index, items } = getElementBySlug(slug);
+  const pSlug = previousSlug(index);
+  const nSlug = nextSlug(index);
 
-  const imageRef = useRef(null);
+  if (items) {
+    return (
+      <div id="preview">
+        {items?.map((item) => (<PortfolioItem {...item}/>))}
+        {slug !== pSlug
+          && (
+            <NavLink to={pSlug} ><span className="fa fa-chevron-left nav previous"></span></NavLink>
+          )}
+        {slug !== nSlug
+          && (
+            <NavLink to={nSlug} ><span className="fa fa-chevron-right nav next"></span></NavLink>
+          )}
 
-  const isVertial = () => imageRef.current ? imageRef.current.clientHeight > 900 : false;
-
-  useEffect(_=> setVertical(isVertial()), [imageRef, slug])
-
-  return (
-    <div id="preview" className={vertial ? "vertical" : ''}>
-      <div className="inner">
-        <div className="image fit">
-          <img ref={imageRef} src={process.env.PUBLIC_URL + `/images/${item.imageName}.jpg`} alt="" />
-        </div>
-        <div className="content">
-          <header>
-            <h2>{item.title}</h2>
-          </header>
-          <p>{item.description_p1}</p>
-          <p>{item.description_p1}</p>
-        </div>
       </div>
-      <NavLink to={previousSlug(index)} ><span className="fa fa-chevron-left nav previous"></span></NavLink>
-      <NavLink to={nextSlug(index)} ><span className="fa fa-chevron-right nav next"></span></NavLink>
-    </div>
-  )
+    )
+  } else {
+    return '';
+  }
 };
 
 

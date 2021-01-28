@@ -1,13 +1,29 @@
 import gql from "graphql-tag";
 
 export const getPortfolioQuery = gql`
-  query {
-    portfolio{
-      id
-      seo {
-        seo
+{
+  portfolio {
+    id
+    slug
+    items {
+      ... on ImageBlock {
+        image {
+          id
+          title
+          file
+        }
       }
-      items
+      ... on TitleBlock {
+        title
+      }
+      ... on BodyBlock {
+        body
+      }
+    }
+    seo {
+      id
+      seo
     }
   }
+}
 `;
