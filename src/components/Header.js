@@ -12,7 +12,7 @@ const Header = () => {
     <header id="header" className={state ? "hide" : 'show'} onClick={() => action()}>
       <div className="inner">
         <div className="content">
-          <h1>Sara Szyje</h1>
+          <h1>Onamehri</h1>
           <h2>Prezetuję wam moje portfolio!.</h2>
           <button className="button"><span>Otwórz</span></button>
         </div>
